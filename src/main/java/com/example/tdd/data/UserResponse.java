@@ -2,13 +2,11 @@ package com.example.tdd.data;
 
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Api(tags = {"UserInfo"}, value = "UserInfo")
+@Api(tags = "Response", value = "UserResponse")
 @Data
-public class UserInfo {
+public class UserResponse {
 
     /**
      * 사용자명
