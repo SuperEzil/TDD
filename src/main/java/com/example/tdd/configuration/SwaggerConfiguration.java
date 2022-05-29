@@ -3,6 +3,7 @@ package com.example.tdd.configuration;
 import com.example.tdd.TddApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -29,7 +30,7 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title("Sample TDD API")
                 .version("0.0.1")
-                .description("API for basic CRUD for Sample")
+                .description("API for basic TDD for Sample")
                 .contact(new Contact("Ezil", "https://github.com/SuperEzil/TDD", "devsangtae@gmail.com"))
                 .license("Apache License Version 2.0")
                 .build();
