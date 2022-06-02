@@ -1,41 +1,29 @@
 package com.example.tdd.controller;
 
+import com.example.tdd.tags.SlowTag;
 import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.RepeatedTest.LONG_DISPLAY_NAME;
 
 class AccountControllerTest {
 
-
-    @Tag("Tag01")
+    @SlowTag
     @Test
     @DisplayName("사용자 가입")
     void createUser() {
         System.out.println("createUser");
     }
 
-    @Tag("Tag01")
+    @Tag("slow")
     @Test
     @DisplayName("사용자 조회 🔍")
     void getUser() {
-    }
 
-    @Tag("Repeated")
-    @DisplayName("사용자 조회 반복")
-    @RepeatedTest(value = 5, name = LONG_DISPLAY_NAME)
-    void repeatedGetUser(RepetitionInfo repetitionInfo) {
-        System.out.println("repeatedGetUser("+repetitionInfo.getCurrentRepetition()+"/"+repetitionInfo.getTotalRepetitions()+")");
     }
 
 
-    @Tag("Tag02")
     @Test
-    @DisplayName("사용자 정보 변경")
-    void modifyUser() {
+    @DisplayName("사용자 정보 변경")    void modifyUser() {
     }
 
-    @Tag("Tag02")
     @Test
     @DisplayName("사용자 삭제")
     void deleteUser() {

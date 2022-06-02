@@ -6,10 +6,10 @@ import com.example.tdd.controller.exception.NotModifiedException;
 import com.example.tdd.data.UserInfo;
 import com.example.tdd.data.AccountRepository;
 import com.example.tdd.data.entity.Account;
-import com.sun.istack.NotNull;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
@@ -17,11 +17,11 @@ import java.util.Optional;
  */
 @Log4j2
 @Service
-public class AccoutService {
+public class AccountService {
 
     private final AccountRepository accountRepository;
 
-    public AccoutService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
 

@@ -2,15 +2,14 @@ package com.example.tdd.data;
 
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * 사용자 정보 [Request]
- * 
- */
+
+@AllArgsConstructor
 @Data
 public class UserInfo {
 

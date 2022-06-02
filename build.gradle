@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+//sourceCompatibility = '17'
 
 configurations {
     compileOnly {
@@ -48,7 +48,7 @@ tasks.named('test') {
 
 task integrationTest(type: Test) {
     useJUnitPlatform{
-        includeTags 'Tag01', 'Repeated'
-        excludeTags 'Tag02'
+        includeTags 'slow', 'Repeated'
+        //excludeTags 'Tag02'
     }
 }

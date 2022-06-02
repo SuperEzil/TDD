@@ -2,18 +2,13 @@ package com.example.tdd.controller;
 
 
 import com.example.tdd.controller.exception.*;
-import com.example.tdd.controller.response.AccountResponse;
 import com.example.tdd.controller.response.BaseResponse;
 import com.example.tdd.data.UserInfo;
 import com.example.tdd.data.entity.Account;
-import com.example.tdd.service.AccoutService;
+import com.example.tdd.service.AccountService;
 import io.swagger.annotations.*;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,15 +22,15 @@ import javax.validation.Valid;
 @Log4j2
 @RestController
 @RequestMapping(value = "/account", produces = MediaType.APPLICATION_JSON_VALUE)
-@Api(tags = "Accoount")
+@Api(tags = "Account")
 @RequiredArgsConstructor
 public class AccountController {
 
-    private AccoutService accoutService;
+    private AccountService accountService;
 
     @Autowired
-    public AccountController(AccoutService accoutService) {
-        this.accoutService = accoutService;
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
     }
 
 
@@ -47,7 +42,7 @@ public class AccountController {
     })
     public ResponseEntity createUser(@Parameter(description = "User name") @RequestParam("name") String name
             , @Parameter(description = "User password") @RequestParam("password") String password) throws ConflictException {
-        return ResponseEntity.ok(accoutService.create(name, password));
+        return ResponseEntity.ok(accountService.create(name, password));
     }
 
     @GetMapping("/{id}")
@@ -56,7 +51,7 @@ public class AccountController {
             @ApiResponse(code = 200, message = "조회 결과", response =Account.class)
             , @ApiResponse(code = 404, message = "찾을수 없음", response = BaseResponse.class)})
     public ResponseEntity getUser(@Parameter(description = "User id", required = true) @PathVariable("id") Integer id) throws NotFoundException {
-        return ResponseEntity.ok(accoutService.getAccount(id));
+        return ResponseEntity.ok(accountService.getAccount(id));
 
     }
 
@@ -68,7 +63,7 @@ public class AccountController {
             , @ApiResponse(code = 404, message = "찾을수 없음", response = BaseResponse.class)})
     public ResponseEntity modifyUser(@Parameter(description = "User id") @PathVariable("id") Integer id
             , @Valid @Parameter(description = "User info") @RequestBody UserInfo info) throws NotFoundException, NotModifiedException {
-        return ResponseEntity.ok(accoutService.updateAccount(id, info));
+        return ResponseEntity.ok(accountService.updateAccount(id, info));
     }
 
     @DeleteMapping("/{id}")
@@ -76,8 +71,8 @@ public class AccountController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "삭제 결과", response =Account.class)
             , @ApiResponse(code = 404, message = "찾을수 없음", response = BaseResponse.class)})
-    public ResponseEntity<?> deleteUser(@Parameter(description = "User id") @PathVariable("id") Integer id) throws NotFoundException {
-        return ResponseEntity.ok(accoutService.deleteAccount(id));
+    public ResponseEntity deleteUser(@Parameter(description = "User id") @PathVariable("id") Integer id) throws NotFoundException {
+        return ResponseEntity.ok(accountService.deleteAccount(id));
     }
 
 }

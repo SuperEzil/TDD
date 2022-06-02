@@ -6,7 +6,7 @@ package com.example.tdd.controller.exception.enums;
  * <li> {@link ResponseMessage#NOT_MODIFIED  NOT_MODIFIED : "변경 할수 없습니다."}
  * <li> {@link ResponseMessage#CONFLICT  CONFLICT : "데이터 출돌이 발생하였습니다."}
  * <li> {@link ResponseMessage#BAD_REQUEST  BAD_REQUEST : "잘못된 요청입니다."}
- * <li> {@link ResponseMessage#UNKOWN  UNKOWN : "알수 없는 오류 발생"}
+ * <li> {@link ResponseMessage#UNKNOWN  UNKOWN : "알수 없는 오류 발생"}
  */
 public enum ResponseMessage {
     /** 변경 할수 없습니다. */
@@ -18,9 +18,9 @@ public enum ResponseMessage {
     /**  데이터 출돌이 발생하였습니다.   */
     CONFLICT("데이터 출돌이 발생하였습니다."),
     /**  알수 없는 오류 발생   */
-    UNKOWN("알수 없는 오류 발생");
+    UNKNOWN("알수 없는 오류 발생");
 
-    private String _msg;
+    private final String _msg;
 
     ResponseMessage(String msg) {
         this._msg = msg;

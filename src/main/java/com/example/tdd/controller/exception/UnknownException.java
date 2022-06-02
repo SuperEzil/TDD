@@ -5,10 +5,10 @@ import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 
-public class UnkownException extends BaseResponseException {
+public class UnknownException extends BaseResponseException {
     @Builder
-    public UnkownException(String message, String detailMessage) {
-        super(StringUtils.hasText(message) ? message : ResponseMessage.UNKOWN.message()
+    public UnknownException(String message, String detailMessage) {
+        super(StringUtils.hasText(message) ? message : ResponseMessage.UNKNOWN.message()
                 , HttpStatus.INTERNAL_SERVER_ERROR
                 , StringUtils.hasText(detailMessage) ? detailMessage : null);
     }

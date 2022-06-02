@@ -2,12 +2,9 @@ package com.example.tdd.configuration;
 
 import com.example.tdd.controller.AccountController;
 import com.example.tdd.controller.exception.BaseResponseException;
-import com.example.tdd.controller.response.AccountResponse;
 import com.example.tdd.controller.response.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -42,7 +39,13 @@ public class RestApiControllerAdvice {
     // 특정 메소드의 예외 처리
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity methodArgumentNotValidException(MethodArgumentNotValidException e) {
-        String msg = e.getBindingResult().getFieldError().getDefaultMessage();
+
+        String msg;
+        if (e.getBindingResult().getFieldError() != null){
+            msg = e.getBindingResult().getFieldError().getDefaultMessage();
+        }else {
+            msg = e.getMessage();
+        }
 
         BaseResponse response = BaseResponse.builder()
                 .message(msg)
