@@ -25,7 +25,6 @@ import javax.validation.Valid;
 @Api(tags = "Account")
 @RequiredArgsConstructor
 public class AccountController {
-
     private AccountService accountService;
 
     @Autowired
@@ -34,36 +33,36 @@ public class AccountController {
     }
 
 
-    @PostMapping("/")
+    @PostMapping("/{name}")
     @Operation(summary = "Create user", description = "Create user")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "가입 결과", response =Account.class)
             , @ApiResponse(code = 409, message = "중복 가입 오류 ", response = BaseResponse.class)
     })
-    public ResponseEntity createUser(@Parameter(description = "User name") @RequestParam("name") String name
+    public ResponseEntity<Account> createUser(@Parameter(description = "User name") @PathVariable("name") String name
             , @Parameter(description = "User password") @RequestParam("password") String password) throws ConflictException {
         return ResponseEntity.ok(accountService.create(name, password));
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Get user by id", description = "Get user by id")
+    @GetMapping("/{name}")
+    @Operation(summary = "Get user by Account Info", description = "Get user by Account Info")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "조회 결과", response =Account.class)
             , @ApiResponse(code = 404, message = "찾을수 없음", response = BaseResponse.class)})
-    public ResponseEntity getUser(@Parameter(description = "User id", required = true) @PathVariable("id") Integer id) throws NotFoundException {
-        return ResponseEntity.ok(accountService.getAccount(id));
+    public ResponseEntity<Account> getUser(@Parameter(description = "User name", required = true) @PathVariable("name") String name) throws NotFoundException {
+        return ResponseEntity.ok(accountService.getAccount(name));
 
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{name}")
     @Operation(summary = "Modify user", description = "Modify user")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "변경 결과", response =Account.class)
             , @ApiResponse(code = 304, message = "변경 실패", response = BaseResponse.class)
             , @ApiResponse(code = 404, message = "찾을수 없음", response = BaseResponse.class)})
-    public ResponseEntity modifyUser(@Parameter(description = "User id") @PathVariable("id") Integer id
+    public ResponseEntity<Account> modifyUser(@Parameter(description = "User name") @PathVariable("name") Integer name
             , @Valid @Parameter(description = "User info") @RequestBody UserInfo info) throws NotFoundException, NotModifiedException {
-        return ResponseEntity.ok(accountService.updateAccount(id, info));
+        return ResponseEntity.ok(accountService.updateAccount(name, info));
     }
 
     @DeleteMapping("/{id}")
@@ -71,7 +70,7 @@ public class AccountController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "삭제 결과", response =Account.class)
             , @ApiResponse(code = 404, message = "찾을수 없음", response = BaseResponse.class)})
-    public ResponseEntity deleteUser(@Parameter(description = "User id") @PathVariable("id") Integer id) throws NotFoundException {
+    public ResponseEntity<Account> deleteUser(@Parameter(description = "User id") @PathVariable("id") Integer id) throws NotFoundException {
         return ResponseEntity.ok(accountService.deleteAccount(id));
     }
 

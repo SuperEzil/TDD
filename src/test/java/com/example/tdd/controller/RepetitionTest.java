@@ -32,7 +32,7 @@ class RepetitionTest {
 
     @RepeatedTag
     @DisplayName("RepeatedTest")
-    @RepeatedTest(value = 5, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
+    @RepeatedTest(value = 5, name = "[{displayName}] {currentRepetition}/{totalRepetitions}")
     void repeatedGetUser(RepetitionInfo info) {
         assertNotNull(info);
         System.out.println("repeatedGetUser: "+info.getCurrentRepetition());
@@ -133,8 +133,5 @@ class RepetitionTest {
 
         );
     }
-
-
-
 
 }

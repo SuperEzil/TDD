@@ -26,6 +26,7 @@ public class BaseEntity {
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "iD", nullable = false, updatable = false)
     private Integer iD;
 

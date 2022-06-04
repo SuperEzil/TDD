@@ -1,13 +1,13 @@
 package com.example.tdd.data.entity;
 
-import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * 가입 정보 [Entity]
@@ -33,4 +33,6 @@ public class Account extends BaseEntity {
     @Size(min = 4, max = 8, message = "비밀번호의 크기는 4에서 8 사이여야 합니다")
     @Schema(minLength = 4, maxLength = 8, description = "비밀 번호", example = "1234")
     private String password;
+
 }
+

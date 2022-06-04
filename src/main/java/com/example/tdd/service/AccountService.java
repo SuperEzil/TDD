@@ -3,10 +3,12 @@ package com.example.tdd.service;
 import com.example.tdd.controller.exception.ConflictException;
 import com.example.tdd.controller.exception.NotFoundException;
 import com.example.tdd.controller.exception.NotModifiedException;
-import com.example.tdd.data.UserInfo;
 import com.example.tdd.data.AccountRepository;
+import com.example.tdd.data.UserInfo;
 import com.example.tdd.data.entity.Account;
+import com.example.tdd.data.entity.AccountListener;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
@@ -16,14 +18,25 @@ import java.util.Optional;
  * 사용자 가입 서비스
  */
 @Log4j2
+//@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Service
 public class AccountService {
+    private AccountRepository accountRepository;
 
-    private final AccountRepository accountRepository;
+   // @Setter
+    private AccountListener accountListener;
 
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, @Nullable AccountListener accountListener) {
+        //assert accountRepository != null;
+        this.accountListener = accountListener;
         this.accountRepository = accountRepository;
     }
+
+    public void notify(Account account){
+        this.accountListener.notify(account);
+    }
+
+
 
     /**
      * 가입
@@ -45,6 +58,7 @@ public class AccountService {
                     .message("이전 가입 정보가 있습니다.").build();
 
 
+
         return saveAccount(Account.builder()
                 .name(name)
                 .password(password)
@@ -54,12 +68,15 @@ public class AccountService {
 
     /**
      * 가입 정보 찾기
-     * @param iD database Pk id
+     * @param name 사용자 명
      * @return 조회 정보
      * @throws NotFoundException 정보를 찾을수 없는 경우 예외
      */
-    public Account getAccount(Integer iD) throws NotFoundException {
-        return findAccountById(iD);
+    public Account getAccount(String name) throws NotFoundException {
+        Account account = findAccountByName(name);
+        accountListener.notify(account);
+        accountListener.validate(null);
+        return account;
     }
 
     /**
@@ -97,7 +114,6 @@ public class AccountService {
     }
 
 
-
     ////////////////// userRepository Func
 
 
@@ -105,32 +121,24 @@ public class AccountService {
             return accountRepository.save(account);
     }
 
-    protected Account findAccountById(@NotNull Integer _Id) throws NotFoundException {
-        Optional<Account> data = accountRepository.findById(_Id);
+    protected Account findAccountById(@NotNull Integer Id) throws NotFoundException {
+        Optional<Account> data = accountRepository.findById(Id);
+        return data.orElseThrow(()-> NotFoundException.builder()
+                    .message("가입 정보를 찾을 수 없습니다.")
+                    .build());
 
-        if (data.isPresent())
-            return data.get();
-
-        throw NotFoundException.builder()
-                .message("가입 정보를 찾을 수 없습니다.")
-                .build();
     }
 
     protected Account findAccountByName(@NotNull String name) throws NotFoundException {
         Optional<Account> data = accountRepository.findByName(name);
-
-        if (data.isPresent())
-            return data.get();
-
-        throw NotFoundException.builder()
+        return data.orElseThrow(()-> NotFoundException.builder()
                 .message("가입 정보를 찾을 수 없습니다.")
-                .build();
+                .build());
+
     }
 
     protected void deleteAccountById(@NotNull Account account){
         accountRepository.delete(account);
     }
-
-
 
 }

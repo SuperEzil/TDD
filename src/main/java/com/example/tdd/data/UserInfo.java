@@ -1,17 +1,19 @@
 package com.example.tdd.data;
 
-import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
-@AllArgsConstructor
-@Data
+@Getter
 public class UserInfo {
+
+
+    public UserInfo(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
 
     /**
      * 사용자명
@@ -27,4 +29,6 @@ public class UserInfo {
     @Schema(description = "비밀 번호", example = "abc1234")
     @Size(min = 4, max = 8, message = "비밀번호의 크기는 4에서 8 사이여야 합니다")
     private String password;
+
 }
+

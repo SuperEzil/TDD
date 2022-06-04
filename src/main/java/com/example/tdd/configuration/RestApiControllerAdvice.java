@@ -19,7 +19,7 @@ public class RestApiControllerAdvice {
 
     // 커스텀 ResponseException 메소드의 예외 처리
     @ExceptionHandler(value = BaseResponseException.class)
-    public ResponseEntity BaseResponseException(BaseResponseException e) {
+    public ResponseEntity<BaseResponse> BaseResponseException(BaseResponseException e) {
         return ResponseEntity
                 .status(e.getHttpStatus())
                 .body(BaseResponse.builder()
@@ -38,7 +38,7 @@ public class RestApiControllerAdvice {
 
     // 특정 메소드의 예외 처리
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResponseEntity methodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<BaseResponse> methodArgumentNotValidException(MethodArgumentNotValidException e) {
 
         String msg;
         if (e.getBindingResult().getFieldError() != null){
@@ -57,7 +57,7 @@ public class RestApiControllerAdvice {
     }
 
     @ExceptionHandler(value = ConstraintViolationException.class)
-    public ResponseEntity constraintViolationException(ConstraintViolationException e) {
+    public ResponseEntity<?> constraintViolationException(ConstraintViolationException e) {
         List<ConstraintViolation<?>> list = e.getConstraintViolations().stream().toList();
         if (list.isEmpty())
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
