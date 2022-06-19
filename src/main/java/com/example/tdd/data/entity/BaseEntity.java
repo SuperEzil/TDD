@@ -1,10 +1,7 @@
 package com.example.tdd.data.entity;
 
 import com.example.tdd.configuration.PropertiesAuditorAware;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
 import lombok.Getter;
-import org.hibernate.annotations.Comment;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -31,22 +28,22 @@ public class BaseEntity {
     private Integer iD;
 
     
-    @Comment("생성자")
+    //@Comment("생성자")
     @Column(name = "createdByUser", nullable = false, updatable = false)
     @CreatedBy
     private String createdByUser;
 
-    @Comment("생성 시간")
+    //@Comment("생성 시간")
     @Column(name = "creationTime", nullable = false, updatable = false)
     @CreatedDate
     private Timestamp creationTime;
 
-    @Comment("마지막 변경자")
+    //@Comment("마지막 변경자")
     @Column(name = "lastModifiedByUser", nullable = false)
     @LastModifiedBy
     private String lastModifiedByUser;
 
-    @Comment("수정 시간")
+    //@Comment("수정 시간")
     @Column(name = "lastModificationTime")
     @LastModifiedDate
     private Timestamp lastModificationTime;

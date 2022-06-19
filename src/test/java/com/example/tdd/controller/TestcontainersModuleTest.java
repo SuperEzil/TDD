@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 @ActiveProfiles("Testcontainers")
 @Testcontainers
-public class TestcontainersTest {
+class TestcontainersModuleTest {
 
     @Mock
     AccountListener accountListener;

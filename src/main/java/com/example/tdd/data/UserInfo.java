@@ -18,7 +18,7 @@ public class UserInfo {
     /**
      * 사용자명
      */
-    @NotNull
+    @NotNull(message = "사용자명은 필수입니다.")
     @Size(min = 1, max = 4, message = "사용자명의 크기는 1에서 4 사이여야 합니다")
     @Schema(description = "사용자 명", example = "jack", minLength = 1, maxLength = 16)
     private String name;
