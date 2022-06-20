@@ -5,7 +5,6 @@ import com.example.tdd.data.AccountRepository;
 import com.example.tdd.data.entity.Account;
 import com.example.tdd.data.entity.AccountListener;
 import com.example.tdd.service.AccountService;
-import org.assertj.core.api.BDDAssumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
@@ -101,7 +100,7 @@ public class MockitoServiceTest {
         }, "NotFoundExceptin을 발생한다");
 
 
-        //실행 순서에 따른 생황 정의
+        //실행 순서에 따른 상황 정의
         when(accountService.getAccount(any()))
                 .thenReturn(account)
                 .thenThrow(NotFoundException.builder().build())

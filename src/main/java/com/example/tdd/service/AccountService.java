@@ -74,8 +74,8 @@ public class AccountService {
      */
     public Account getAccount(String name) throws NotFoundException {
         Account account = findAccountByName(name);
-        accountListener.notify(account);
-        accountListener.validate(null);
+        //accountListener.notify(account);
+        //accountListener.validate(null);
         return account;
     }
 
