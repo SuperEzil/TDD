@@ -32,6 +32,7 @@ public class ArchUintTest {
 
     }
 
+
     @Test
     void 패키지_잠조방향_확인(){
         ArchRule controllerRule = noClasses().that().resideInAPackage("..service..")

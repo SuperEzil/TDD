@@ -45,13 +45,9 @@ public class AccountService {
      * @return 가입 정보 반환
      * @throws ConflictException 중복 가입 예외
      */
-    public Account create(String name, String password) throws ConflictException {
+    public Account create(String name, String password)  {
         Account account = null;
-        try {
             account = findAccountByName(name);
-        } catch (NotFoundException e) {
-            log.info(e.getMessage());
-        }
 
         if (account != null)
             throw ConflictException.builder()
@@ -72,7 +68,7 @@ public class AccountService {
      * @return 조회 정보
      * @throws NotFoundException 정보를 찾을수 없는 경우 예외
      */
-    public Account getAccount(String name) throws NotFoundException {
+    public Account getAccount(String name)  {
         Account account = findAccountByName(name);
         //accountListener.notify(account);
         //accountListener.validate(null);
@@ -87,7 +83,7 @@ public class AccountService {
      * @throws NotFoundException 정보를 찾을수 없는 경우 예외
      * @throws NotModifiedException 정보 변경이 불가능한 경우 에외
      */
-    public Account updateAccount(Integer iD, UserInfo info) throws NotFoundException, NotModifiedException {
+    public Account updateAccount(Integer iD, UserInfo info)  {
         Account account = findAccountById(iD);
 
         account.setName(info.getName());
@@ -107,7 +103,7 @@ public class AccountService {
      * @return 삭제 가입자 정보
      * @throws NotFoundException 정보를 찾을수 없는 경우 예외
      */
-    public Account deleteAccount(Integer id) throws NotFoundException {
+    public Account deleteAccount(Integer id)  {
         Account account = findAccountById(id);
         deleteAccountById(account);
         return account;
@@ -121,7 +117,7 @@ public class AccountService {
             return accountRepository.save(account);
     }
 
-    protected Account findAccountById(@NotNull Integer Id) throws NotFoundException {
+    protected Account findAccountById(@NotNull Integer Id)  {
         Optional<Account> data = accountRepository.findById(Id);
         return data.orElseThrow(()-> NotFoundException.builder()
                     .message("가입 정보를 찾을 수 없습니다.")
@@ -129,7 +125,7 @@ public class AccountService {
 
     }
 
-    protected Account findAccountByName(@NotNull String name) throws NotFoundException {
+    protected Account findAccountByName(@NotNull String name) {
         Optional<Account> data = accountRepository.findByName(name);
         return data.orElseThrow(()-> NotFoundException.builder()
                 .message("가입 정보를 찾을 수 없습니다.")

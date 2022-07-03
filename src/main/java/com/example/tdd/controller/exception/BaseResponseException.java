@@ -2,10 +2,9 @@ package com.example.tdd.controller.exception;
 
 
 import lombok.Getter;
-import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 
-public class BaseResponseException extends Exception{
+public class BaseResponseException extends RuntimeException{
 
     @Getter
     private final HttpStatus httpStatus;
